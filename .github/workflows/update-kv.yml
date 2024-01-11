@@ -19,17 +19,12 @@ jobs:
       - name: Update and Install Wrangler
         run: npm uninstall -g @cloudflare/wrangler && npm install -g wrangler
 
-      - name: Authenticate Wrangler
-        run: wrangler whoami
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
       - name: Update KV Store with Markdown Files
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$' | while read filename; do
             key=$(basename "$filename" .md)
-            # Specify the Namespace ID directly
             wrangler kv:key put --namespace-id="${{ secrets.CLOUDFLARE_KV_NAMESPACE_ID }}" "$key" --path="$filename"
           done
         env:
           CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
