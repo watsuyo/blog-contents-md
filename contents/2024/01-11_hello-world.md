@@ -5,7 +5,7 @@ path: 12_12_hello-world
 tags: [Life]
 ---
 
-This is my first blog.
+This is my first blog. Hello World.
 
 ## Who am I?
 
