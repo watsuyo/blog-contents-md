@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Update and Install Wrangler
         run: npm uninstall -g @cloudflare/wrangler && npm install -g wrangler
@@ -20,14 +22,14 @@ jobs:
       - name: Authenticate Wrangler
         run: wrangler whoami
         env:
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Update KV Store with Markdown Files
         run: |
-          git diff --name-only HEAD^ HEAD | grep '\.md$' | while read filename; do
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$' | while read filename; do
             key=$(basename "$filename" .md)
             value=$(cat "$filename")
-            wrangler kv:key put --binding=YOUR_KV_BINDING "$key" "$value"
+            wrangler kv:key put --binding=BLOG_CONTENTS "$key" "$value"
           done
         env:
-          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

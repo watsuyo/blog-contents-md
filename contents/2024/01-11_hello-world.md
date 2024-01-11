@@ -17,3 +17,5 @@ I am watsuyo, a Frontend Developer and My nationality is Japanese. I live in Ber
 const func = (name: string) => console.log(name)
 func('watsuyo')
 ```
+
+X: https://x.com/watsuyo_2
