@@ -1,7 +1,7 @@
 ---
 title: Hello World.
 date: 2024/01/11
-path: 01_11_hello-world
+path: 01-11_hello-world
 tags: [Life]
 ---
 
