@@ -19,4 +19,5 @@ func('watsuyo')
 ```
 
 ## SNS
+
 X: https://x.com/watsuyo_2

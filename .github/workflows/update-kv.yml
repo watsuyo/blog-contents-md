@@ -24,12 +24,12 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      - name: Update KV Store with Markdown Files
+            - name: Update KV Store with Markdown Files
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$' | while read filename; do
             key=$(basename "$filename" .md)
-            # Use --path flag to specify the file for the value
-            wrangler kv:key put --binding=BLOG_CONTENTS "$key" --path="$filename"
+            # Specify the Namespace ID directly
+            wrangler kv:key put --namespace-id="${{ secrets.CLOUDFLARE_KV_NAMESPACE_ID }}" "$key" --path="$filename"
           done
         env:
           CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
