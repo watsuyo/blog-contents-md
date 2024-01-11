@@ -18,4 +18,5 @@ const func = (name: string) => console.log(name)
 func('watsuyo')
 ```
 
+## SNS
 X: https://x.com/watsuyo_2

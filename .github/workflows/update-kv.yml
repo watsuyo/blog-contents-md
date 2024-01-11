@@ -28,8 +28,8 @@ jobs:
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$' | while read filename; do
             key=$(basename "$filename" .md)
-            value=$(cat "$filename")
-            wrangler kv:key put --binding=BLOG_CONTENTS "$key" "$value"
+            # Use --path flag to specify the file for the value
+            wrangler kv:key put --binding=BLOG_CONTENTS "$key" --path="$filename"
           done
         env:
           CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
