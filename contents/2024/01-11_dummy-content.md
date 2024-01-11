@@ -10,3 +10,10 @@ This is my first blog.
 ## Who am I?
 
 I am watsuyo, a Frontend Developer and My nationality is Japanese. I live in Berlin, Germany at a moment.
+
+## Code Snipet
+
+```ts
+const func = (name: string) => console.log(name)
+func('watsuyo')
+```
